@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 const app = require('../app');
-const debug = require('debug')('course:server');
+const debug = require('debug')('node-authorization-sample:server');
 const http = require('http');
 
 /**

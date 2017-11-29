@@ -1,7 +1,7 @@
 let config = {};
 
 config.mongodb = {
-    uri: process.env.MONGO_URI || 'mongodb://localhost/course',
+    uri: process.env.MONGO_URI || 'mongodb://localhost/node-authorization-sample',
     port: process.env.MONGO_PORT || '27017',
     options: {
         user: process.env.MONGO_USER || '',
