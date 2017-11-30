@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
+const config = require('../../config/config');
 
 let userSchema = new mongoose.Schema({
 
@@ -56,8 +59,22 @@ userSchema.methods.comparePassword = function (pw) {
     return bcrypt.compare(pw, this.get('password'));
 };
 
-userSchema.methods.getToken = function () {
-    return '';
+userSchema.methods.getToken = async function () {
+    let currentUser = {
+        id: this.get('_id'),
+        email: this.get('email'),
+    };
+
+    let accessToken = jwt.sign(currentUser, config.auth.secret, { expiresIn: config.auth.tokenAge });
+    this.tokens.refresh = `${currentUser.id.toString()}.${crypto.randomBytes(40).toString('hex')}`;
+
+    let savedUser = await this.save();
+    return {
+        currentUser: currentUser,
+        accessToken: accessToken,
+        refreshToken: savedUser.tokens.refresh,
+        tokenType: 'JWT',
+    };
 };
 
 module.exports = mongoose.model('User', userSchema);

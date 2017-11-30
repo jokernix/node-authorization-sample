@@ -1,7 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const passport = require('./config/passport');
+const { passport } = require('./config');
 const components = require('./src/components');
 
 const app = express();

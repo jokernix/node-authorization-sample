@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 /**
  * A module for configuring routes
- * @module map/route
+ * @module map-route
  */
 
 /**

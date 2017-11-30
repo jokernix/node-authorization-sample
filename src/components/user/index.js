@@ -1,1 +1,5 @@
-module.exports = require('./user.routes');
+module.exports = {
+    userRoutes: require('./user.routes'),
+    userCtrl: require('./user.controller'),
+    userService: require('./user.service')
+}

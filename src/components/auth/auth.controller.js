@@ -1,4 +1,4 @@
-const asyncWrap = require('../../../utils').asyncWrap;
+const { asyncWrap } = require('../../../utils');
 const service = require('./auth.service');
 
 let login = async (req, res, next) => {
