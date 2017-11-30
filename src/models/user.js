@@ -43,7 +43,7 @@ userSchema.pre('save', async function (next) {
 
         // only hash the password if it has been modified (or is new)
         if (user.isNew  || user.isModified('password')) {
-            user.password = await bcrypt.hash(user.password, 10);
+            user.password = await bcrypt.hash(user.get('password'), 10);
         }
 
         return next();
@@ -53,7 +53,7 @@ userSchema.pre('save', async function (next) {
 });
 
 userSchema.methods.comparePassword = function (pw) {
-    return bcrypt.compare(pw, this.password);
+    return bcrypt.compare(pw, this.get('password'));
 };
 
 userSchema.methods.getToken = function () {
