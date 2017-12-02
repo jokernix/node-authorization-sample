@@ -10,12 +10,12 @@ let userSchema = new mongoose.Schema({
         type: String,
         lowercase: true,
         unique: true,
-        required: 'Email address is required'
+        required: true
     },
 
     password: {
         type: String,
-        required: 'Password is required'
+        required: true
     },
 
     deleted: Boolean,
@@ -73,7 +73,7 @@ userSchema.methods.getToken = async function () {
         currentUser: currentUser,
         accessToken: accessToken,
         refreshToken: savedUser.tokens.refresh,
-        tokenType: 'JWT',
+        tokenType: 'bearer',
     };
 };
 

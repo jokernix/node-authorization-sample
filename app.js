@@ -1,18 +1,14 @@
 const express = require('express');
-const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const { passport } = require('./config');
+const { passport, mongoose } = require('./config');
 const components = require('./src/components');
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(cookieParser());
 
 app.use(passport.initialize());
-
-require('./config/mongoose');
 
 app.use('/api', components);
 
