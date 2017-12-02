@@ -30,8 +30,7 @@ app.use(function (err, req, res, next) {
     res.status(status);
     res.json({
         success: 'error',
-        message: err.message,
-        errors: err.errors
+        message: err.message
     });
 });
 

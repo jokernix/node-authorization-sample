@@ -1,13 +1,10 @@
+const { generateError } = require('../../../utils');
 const { User } = require('../../models');
 
 module.exports.get = async id => {
     let user = await User.findById(id);
     
-    if (!user) {
-        let err = new Error('Not Found');
-        err.status = 404;
-        throw err;
-    }
+    if (!user) generateError(404, 'User is not found');
 
     return user;
 };
@@ -23,11 +20,7 @@ module.exports.update = async(id, fields) => {
 
 module.exports.changePassword = async(user, {newPassword, oldPassword}) => {
     let isMatch = await user.comparePassword(oldPassword);
-    if (!isMatch) {
-        let err = new Error('Invalid password. Try again');
-        err.status = 400;
-        throw err;
-    }
+    if (!isMatch) generateError(400, 'Incorrect password');
 
     user.password = newPassword;
     let savedUser = await user.save();

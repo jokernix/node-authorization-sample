@@ -1,19 +1,14 @@
+const { generateError } = require('../../../utils');
 const { User } = require('../../models');
 
 module.exports.login = async ({ email, password }) => {
     let user = await User.findOne({ email });
-    if (!user || user.deleted) throwError();
+    if (!user || user.deleted) generateError(404, 'User is not found');
 
     let isMatch = await user.comparePassword(password);
-    if (!isMatch) throwError();
+    if (!isMatch) generateError(400, 'Incorrect password')
 
     return user.getToken();
-
-    function throwError() {
-        let err = new Error('Invalid email or password. Try again');
-        err.status = 401;
-        throw err;
-    }
 };
 
 module.exports.register = ({ email, password }) => {

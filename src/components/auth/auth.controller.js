@@ -1,7 +1,10 @@
-const { asyncWrap } = require('../../../utils');
+const { asyncWrap, generateError } = require('../../../utils');
 const service = require('./auth.service');
 
 let login = async (req, res, next) => {
+
+    if (!req.body.email) generateError(400, 'Email is required');
+    if (!req.body.password) generateError(400, 'Password is required');
 
     let tokens = await service.login(req.body);
     res.json({
@@ -13,6 +16,9 @@ let login = async (req, res, next) => {
 
 let registration = async (req, res, next) => {
 
+    if (!req.body.email) generateError(400, 'Email is required');
+    if (!req.body.password) generateError(400, 'Password is required');
+
     let user = await service.register(req.body);
     res.json({
         status: 'success',
@@ -22,7 +28,7 @@ let registration = async (req, res, next) => {
 };
 
 let resetPassword = async (req, res, next) => {
-    res.send('resetPassword: not implemented');
+    generateError(500, 'resetPassword: not implemented');
 };
 
 module.exports = {

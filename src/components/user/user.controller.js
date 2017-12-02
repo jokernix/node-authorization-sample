@@ -1,4 +1,4 @@
-const { asyncWrap } = require('../../../utils');
+const { asyncWrap, generateError } = require('../../../utils');
 const service = require('./user.service');
 
 let get = (req, res, next) => {
@@ -10,7 +10,7 @@ let get = (req, res, next) => {
 
 let update = async(req, res, next) => {
 
-    if (!req.body.email) throwError();
+    if (!req.body.email) generateError(400, 'Email is required');
 
     let savedUser = await service.update(req.user.get('_id'), {
         email: req.body.email
@@ -35,9 +35,11 @@ let remove = async(req, res, next) => {
 };
 
 let changePassword = async(req, res, next) => {
-    let user = req.user;
 
-    let tokens = await service.changePassword(user, req.body);
+    if (!req.body.newPassword) generateError(400, 'New password is required');
+    if (!req.body.oldPassword) generateError(400, 'Old password is required');
+
+    let tokens = await service.changePassword(req.user, req.body);
     
     res.json({
         status: 'success',
@@ -51,9 +53,3 @@ module.exports = {
     remove: asyncWrap(remove),
     changePassword: asyncWrap(changePassword)
 };
-
-function throwError(message = 'Invalid data. Try again') {
-    let err = new Error(message);
-    err.status = 400;
-    throw err;
-}
