@@ -9,24 +9,17 @@
 
 ## Getting Started
 
-### Prerequisites
+0. Make you sure have the latest versions `Node v8.x.x+` and `npm v5.x.x+` on your machine.
 
-Make you sure have the latest versions `Node v8.x.x+` and `npm v5.x.x+` on your machine.
+1. Clone the code:
 
-### Clone Repo
+        git clone https://github.com/jokernix/node-authorization-sample.git
+        cd node-authorization-sample
 
-````
-git clone https://github.com/jokernix/node-authorization-sample.git
-````
+2. Install dependencies
 
-### Npm install dependencies
+        npm install
 
-````
-npm install
-````
+3. Run
 
-### Start Server
-
-````
-npm run start
-````
+        npm start
