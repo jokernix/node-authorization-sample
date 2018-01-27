@@ -1,5 +1,3 @@
-const router = require('express').Router();
-
 /**
  * A module for configuring routes
  * @module map-route
@@ -14,6 +12,8 @@ const router = require('express').Router();
  *  }
  */
 module.exports = (routes) => {
+    const router = require('express').Router();
+
     if (!Array.isArray(routes)) {
         throw new Error('"routes" must be an array');
     }
